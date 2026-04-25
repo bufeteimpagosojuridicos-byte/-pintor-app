@@ -285,6 +285,82 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
 <body>
 
 <!-- TOAST -->
+
+<!-- SPLASH SCREEN -->
+<div id="splash-screen" style="
+  position:fixed;inset:0;z-index:9999;
+  background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 60%,#0f172a 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:opacity 0.5s;">
+  <div style="text-align:center;">
+    <div style="font-size:80px;margin-bottom:16px;animation:bounceIn 0.8s ease;">🎨</div>
+    <div style="font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;color:#fff;letter-spacing:1px;">PintorApp</div>
+    <div style="font-size:14px;color:rgba(255,255,255,0.5);margin-top:6px;">El teu pressupostador professional</div>
+    <div style="margin-top:32px;">
+      <div style="width:40px;height:4px;background:#f5c800;border-radius:4px;margin:0 auto;animation:loading 1.5s ease infinite;"></div>
+    </div>
+    <div style="margin-top:40px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.1);">
+      <div style="font-size:10px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:1px;">Patrocinat per</div>
+      <div style="font-size:15px;color:#f5c800;font-weight:700;margin-top:4px;">🖌 La Botiga del Robert · Lleida</div>
+    </div>
+  </div>
+</div>
+
+<!-- ACTIVATION SCREEN -->
+<div id="activation-screen" style="
+  position:fixed;inset:0;z-index:9998;
+  background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 60%,#0f172a 100%);
+  display:none;align-items:center;justify-content:center;padding:24px;flex-direction:column;">
+  <div style="background:white;border-radius:20px;padding:32px 24px;width:100%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,0.4);">
+    <div style="text-align:center;margin-bottom:28px;">
+      <div style="font-size:56px;margin-bottom:12px;">🔑</div>
+      <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:#0f172a;">Activa la teva app</div>
+      <div style="font-size:13px;color:#64748b;margin-top:6px;line-height:1.5;">Introdueix el codi d'activació que t'ha donat <strong>La Botiga del Robert</strong></div>
+    </div>
+    <input id="activation-code" type="text" autocapitalize="characters"
+      placeholder="XXXX-XXXX-XX"
+      style="width:100%;padding:16px;border:2px solid #e2e8f0;border-radius:12px;
+        font-size:20px;font-weight:700;text-align:center;letter-spacing:4px;
+        font-family:monospace;background:#f8fafc;color:#0f172a;
+        outline:none;transition:border-color 0.2s;margin-bottom:8px;"
+      oninput="this.value=this.value.toUpperCase()"
+      onfocus="this.style.borderColor='#2563eb'"
+      onblur="this.style.borderColor='#e2e8f0'">
+    <div id="activation-error" style="color:#ef4444;font-size:12px;text-align:center;margin-bottom:10px;display:none;">
+      ❌ Codi incorrecte. Comprova el codi i torna-ho a intentar.
+    </div>
+    <div id="activation-loading" style="color:#2563eb;font-size:12px;text-align:center;margin-bottom:10px;display:none;">
+      ⏳ Verificant codi...
+    </div>
+    <button onclick="verificarCodi()"
+      style="width:100%;padding:15px;background:linear-gradient(135deg,#2563eb,#1d4ed8);
+        color:white;border:none;border-radius:12px;font-size:16px;font-weight:700;
+        cursor:pointer;font-family:'DM Sans',sans-serif;transition:transform 0.1s;"
+      onmousedown="this.style.transform='scale(0.98)'"
+      onmouseup="this.style.transform='scale(1)'">
+      Activar app →
+    </button>
+    <div style="text-align:center;margin-top:20px;padding-top:16px;border-top:2px solid #f5c800;">
+      <div style="font-size:11px;color:#9ca3af;">No tens codi? Visita</div>
+      <a href="tel:973000392" style="font-size:14px;color:#003d8f;font-weight:700;text-decoration:none;">📞 La Botiga del Robert · 973 00 03 92</a>
+    </div>
+  </div>
+</div>
+
+<style>
+@keyframes bounceIn {
+  0%{transform:scale(0.3);opacity:0}
+  50%{transform:scale(1.1)}
+  70%{transform:scale(0.95)}
+  100%{transform:scale(1);opacity:1}
+}
+@keyframes loading {
+  0%{width:20px;opacity:0.5}
+  50%{width:80px;opacity:1}
+  100%{width:20px;opacity:0.5}
+}
+</style>
+
 <div id="toast"></div>
 <div id="listen-overlay">🎤 Escoltant...</div>
 
@@ -310,21 +386,21 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
     <div class="setup-field">
       <label>El teu nom o empresa</label>
       <div class="field-with-mic">
-        <input type="text" autocapitalize="words" id="s-nom" placeholder="Joan Pintors / Pinturas García...">
+        <input type="text" id="s-nom" placeholder="Joan Pintors / Pinturas García...">
         <button class="mic-btn" onclick="vozSetup('s-nom',this)">🎤</button>
       </div>
     </div>
     <div class="setup-field">
       <label>Telèfon</label>
       <div class="field-with-mic">
-        <input type="tel" autocapitalize="words" id="s-tel" placeholder="612 345 678">
+        <input type="tel" id="s-tel" placeholder="612 345 678">
         <button class="mic-btn" onclick="vozSetup('s-tel',this)">🎤</button>
       </div>
     </div>
     <div class="setup-field">
       <label>Població</label>
       <div class="field-with-mic">
-        <input type="text" autocapitalize="words" id="s-pob" placeholder="Lleida, Tarragona...">
+        <input type="text" id="s-pob" placeholder="Lleida, Tarragona...">
         <button class="mic-btn" onclick="vozSetup('s-pob',this)">🎤</button>
       </div>
     </div>
@@ -388,14 +464,14 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
       <div class="field-row">
         <label>Nom del client</label>
         <div class="field-with-mic">
-          <input type="text" autocapitalize="words" id="cli-nom" placeholder="Nom i cognoms...">
+          <input type="text" id="cli-nom" placeholder="Nom i cognoms...">
           <button class="mic-btn" onclick="vozCampo('cli-nom',this)">🎤</button>
         </div>
       </div>
       <div class="field-row">
         <label>Adreça de l'obra</label>
         <div class="field-with-mic">
-          <input type="text" autocapitalize="words" id="cli-adr" placeholder="Carrer, número, pis...">
+          <input type="text" id="cli-adr" placeholder="Carrer, número, pis...">
           <button class="mic-btn" onclick="vozCampo('cli-adr',this)">🎤</button>
         </div>
       </div>
@@ -477,17 +553,101 @@ var PARTIDES_BASE = [
 ];
 
 // ─── SETUP ───────────────────────────────────────────────────────────────────
+// Firebase config per verificar codis
+var FIREBASE_URL = 'https://pintorapp-6d480-default-rtdb.europe-west1.firebasedatabase.app';
+var FIREBASE_KEY = 'AIzaSyBsnQ3pRx0AS0n3AEr0jp8atCbVlQIuyYQ';
+
 window.onload = function() {
-  var saved = localStorage.getItem('pintor_user');
-  if (saved) {
-    userData = JSON.parse(saved);
-    iniciarApp();
-  }
-  // Set today's date
+  // Mostrar splash 2 segons
+  setTimeout(function() {
+    var splash = document.getElementById('splash-screen');
+    splash.style.opacity = '0';
+    setTimeout(function() {
+      splash.style.display = 'none';
+      // Comprovar si ja té codi activat
+      var codiActiu = localStorage.getItem('pintor_codi_actiu');
+      var saved = localStorage.getItem('pintor_user');
+      if (codiActiu && saved) {
+        userData = JSON.parse(saved);
+        iniciarApp();
+      } else if (codiActiu) {
+        // Té codi però no configuració
+        document.getElementById('setup-screen').style.display = 'flex';
+      } else {
+        // Sense codi — mostrar pantalla activació
+        document.getElementById('activation-screen').style.display = 'flex';
+      }
+    }, 500);
+  }, 2000);
+
   var today = new Date().toISOString().split('T')[0];
   var df = document.getElementById('cli-data');
   if (df) df.value = today;
 };
+
+function verificarCodi() {
+  var codi = document.getElementById('activation-code').value.trim().toUpperCase();
+  if (!codi || codi.length < 6) {
+    document.getElementById('activation-error').style.display = 'block';
+    return;
+  }
+  document.getElementById('activation-error').style.display = 'none';
+  document.getElementById('activation-loading').style.display = 'block';
+
+  // Buscar el codi a Firebase
+  fetch(FIREBASE_URL + '/pintorapp/packs.json?auth=' + FIREBASE_KEY)
+    .then(function(r){ return r.json(); })
+    .then(function(packs) {
+      document.getElementById('activation-loading').style.display = 'none';
+      if (!packs) { mostrarErrorCodi(); return; }
+      var codiTrobat = false;
+      var packId = null;
+      // Buscar el codi entre tots els packs
+      Object.keys(packs).forEach(function(pid) {
+        var pack = packs[pid];
+        if (pack.codigos && pack.codigos[codi]) {
+          var estat = pack.codigos[codi].estado;
+          if (estat === 'libre' || estat === 'actiu') {
+            codiTrobat = true;
+            packId = pid;
+          }
+        }
+      });
+      if (codiTrobat) {
+        // Marcar codi com usat
+        fetch(FIREBASE_URL + '/pintorapp/packs/' + packId + '/codigos/' + codi + '.json', {
+          method: 'PATCH',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({estado:'actiu', activat_el: new Date().toISOString()})
+        });
+        // Guardar codi localment
+        localStorage.setItem('pintor_codi_actiu', codi);
+        localStorage.setItem('pintor_pack_id', packId);
+        // Anar a configuració
+        document.getElementById('activation-screen').style.display = 'none';
+        document.getElementById('setup-screen').style.display = 'flex';
+        showToast('✅ Codi correcte! Ara configura la teva app.');
+      } else {
+        mostrarErrorCodi();
+      }
+    })
+    .catch(function() {
+      document.getElementById('activation-loading').style.display = 'none';
+      // Si no hi ha connexió, permetre en mode demo
+      showToast('⚠️ Sense connexió. Mode demo activat.');
+      localStorage.setItem('pintor_codi_actiu', 'DEMO');
+      document.getElementById('activation-screen').style.display = 'none';
+      document.getElementById('setup-screen').style.display = 'flex';
+    });
+}
+
+function mostrarErrorCodi() {
+  document.getElementById('activation-error').style.display = 'block';
+  document.getElementById('activation-code').style.borderColor = '#ef4444';
+  setTimeout(function(){
+    document.getElementById('activation-code').style.borderColor = '#e2e8f0';
+  }, 2000);
+}
 
 var selectedColor = '#2563eb';
 
