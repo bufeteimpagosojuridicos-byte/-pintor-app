@@ -310,21 +310,21 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
     <div class="setup-field">
       <label>El teu nom o empresa</label>
       <div class="field-with-mic">
-        <input type="text" id="s-nom" placeholder="Joan Pintors / Pinturas García...">
+        <input type="text" autocapitalize="words" id="s-nom" placeholder="Joan Pintors / Pinturas García...">
         <button class="mic-btn" onclick="vozSetup('s-nom',this)">🎤</button>
       </div>
     </div>
     <div class="setup-field">
       <label>Telèfon</label>
       <div class="field-with-mic">
-        <input type="tel" id="s-tel" placeholder="612 345 678">
+        <input type="tel" autocapitalize="words" id="s-tel" placeholder="612 345 678">
         <button class="mic-btn" onclick="vozSetup('s-tel',this)">🎤</button>
       </div>
     </div>
     <div class="setup-field">
       <label>Població</label>
       <div class="field-with-mic">
-        <input type="text" id="s-pob" placeholder="Lleida, Tarragona...">
+        <input type="text" autocapitalize="words" id="s-pob" placeholder="Lleida, Tarragona...">
         <button class="mic-btn" onclick="vozSetup('s-pob',this)">🎤</button>
       </div>
     </div>
@@ -388,14 +388,14 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
       <div class="field-row">
         <label>Nom del client</label>
         <div class="field-with-mic">
-          <input type="text" id="cli-nom" placeholder="Nom i cognoms...">
+          <input type="text" autocapitalize="words" id="cli-nom" placeholder="Nom i cognoms...">
           <button class="mic-btn" onclick="vozCampo('cli-nom',this)">🎤</button>
         </div>
       </div>
       <div class="field-row">
         <label>Adreça de l'obra</label>
         <div class="field-with-mic">
-          <input type="text" id="cli-adr" placeholder="Carrer, número, pis...">
+          <input type="text" autocapitalize="words" id="cli-adr" placeholder="Carrer, número, pis...">
           <button class="mic-btn" onclick="vozCampo('cli-adr',this)">🎤</button>
         </div>
       </div>
